@@ -15,7 +15,7 @@ app.use("/data", navidata);
 
 app.use((req, res)=>{
    res.status(404).sendFile(path.join(__dirname, '../www/nopage.html'))}
-   )
+)
 
 app.listen(port, ()=>{
     console.log(`localhost:${port} 서버정상구동`)
