@@ -49,10 +49,9 @@ naviapp.get('/',(req,res,next)=>{
 
       const info = req.query.tablenm;  // pc
       const no = req.query.w;  // 1   
-      if(info == "navi"){ 
-          //next('route'); 
-          //다음라우터 실행
-          res.send(navidata) 
+      if(info == "navi"){           
+          next('route'); 
+          //다음라우터 실행         
       }else if(info =="swiper"){
           res.send(`${info}테이블 http://localhost:8080/data?tablenm=swiper`)
       }else if(info =="qna"){
@@ -60,6 +59,9 @@ naviapp.get('/',(req,res,next)=>{
       }else{
          res.send("일반라우터")   
       }
+})
+naviapp.get('/',(req,res,next)=>{ 
+    res.send({bbb:navidata}) 
 })
 
 module.exports = naviapp;
