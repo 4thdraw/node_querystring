@@ -5,10 +5,10 @@ const navidata = require("./routers/navi");
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, '../www')))
+app.use(express.static(path.join(__dirname, '../front/build')))
 
 app.get('/',(req, res, next)=>{
-     res.sendFile(path.join(__dirname, '../www/index.html'))      
+     res.sendFile(path.join(__dirname, '../front/build/index.html'))      
 })
 
 app.use("/data", navidata);
