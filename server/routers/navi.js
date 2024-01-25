@@ -1,11 +1,9 @@
 const express = require("express")
 const naviapp = express.Router();
 
-//데이터전송
 naviapp.use(express.json())
-//주소창 ? 뒤에부분을 key와 value인식
 naviapp.use(express.urlencoded({ extended : true }))
-// localhost:8080/data?tablenm=swiper
+
 const navidata = {
   navinm : [
     { nm : "회사소개", href : "#none"
@@ -25,15 +23,22 @@ const navidata = {
   ] 
 }
 
-naviapp.post('/',(req,res,next)=>{ 
-    const tablenm = req.query.tablenm;
+naviapp.post('/:tablenm',(req,res,next)=>{ 
+    // const tablenm = req.query.tablenm;
+    const tablenm = req.params.tablenm;
     if(tablenm == "navinm"){
       res.send(navidata.navinm)
+      //   /data?tablenm=navinm
+      //   /data/navinm
 
     }else if(tablenm == "swiper"){
       res.send(navidata.swiper)
+     //    /data?tablenm=swiper
+     //    /data/navinm
     }else{
       res.send(["일반라우터 ? 다음의 변수가없거나 설정안된 변수네"])
+      //   /data?tablenm=alkdflans,  /data, /data?andlfa=slkfna
+      
     }
      
 })
