@@ -1,28 +1,26 @@
 import {useEffect, useState} from 'react'
-import axios from 'axios';
+import { tableselect } from './promise/dbconect'
 import './App.css';
 
 function App() {
-  const [content, setcont] = useState([]);
-
-  const tableselect = async (tablenm) =>{
-    axios.post(`/data/${tablenm}`)
-    //노드의 req -> res -> Response.data로 저장된다.
-    .then((Response)=>{ // 여기 변수에 저장
-         console.log(typeof Response.data, Response.data, Array.isArray(Response.data));
-         setcont([...Response.data]);
-        })
-    .catch((Error)=>{console.log(Error)})
-  }   
-
+  const [content, setcont] = useState([]); 
   useEffect(
-    ()=> { 
-      tableselect("swiper");
+    ()=> {  
+     const tableresult = async () =>{
+        try{ 
+            const sqldata = await tableselect('ongadam_about');
+            setcont([...sqldata.data])           
+         }
+        catch (error){
+            setcont(["죄송합니다. 불안정한 서버로 이후 다시 진행해주세요."])
+        }
+     }
+     tableresult();
     }, []
   )
   return (
     <div className="App">
-      { content.map((e, i) => e.src )}
+      {content && content.map((e, i) => e.src )}
     </div>
   );
 }
